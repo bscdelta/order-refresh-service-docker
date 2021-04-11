@@ -83,6 +83,8 @@ module.exports = async (req, res) => {
 
   const { contractAddr, orders } = await json(req);
 
+  console.log("contractAddr, orders ",contractAddr, orders);
+
   const orderKeys = Object.keys(orders);
   const calls = [
     ...orderKeys.map(key =>
