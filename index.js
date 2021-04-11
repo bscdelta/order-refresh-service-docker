@@ -11,8 +11,6 @@ multicall.config = {
   rpcNode: process.env.HTTP_PROVIDER_URL
 };
 
-console.log(multicall.config);
-
 const ETHERDELTA_ABI = require("./etherdelta.abi.json");
 const MAX_AGGREGATE_CALLS = 256;
 
@@ -74,6 +72,9 @@ function promiseIsRejected({ status }) {
 }
 
 module.exports = async (req, res) => {
+
+  console.log("request: ",req);
+
   let aggregateCallsCounter = 0;
   const aggregateWithCounter = calls => {
     aggregateCallsCounter += 1;
@@ -116,6 +117,8 @@ module.exports = async (req, res) => {
       results,
       ...settledPromises.filter(promiseIsFulfilled).map(({ value }) => value)
     );
+
+    console.log("results 1 ",results);
 
     iteration += 1;
     chunks = chunk(
