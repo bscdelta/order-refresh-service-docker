@@ -59,8 +59,9 @@ function aggregateGetState(contractAddr, orders, orderKeys) {
       makeAvailableVolumeCall(contractAddr, key, orders[key])
     )
   ];
-
-  return multicall.aggregate(subcalls);
+  let t = multicall.aggregate(subcalls);
+  console.log(t);
+  return t;
 }
 
 function promiseIsFulfilled({ status }) {
@@ -76,7 +77,9 @@ module.exports = async (req, res) => {
   let aggregateCallsCounter = 0;
   const aggregateWithCounter = calls => {
     aggregateCallsCounter += 1;
-    return multicall.aggregate(calls);
+    let t = multicall.aggregate(calls);
+    console.log(t);
+    return t;
   };
 
   const { contractAddr, orders } = await json(req);
