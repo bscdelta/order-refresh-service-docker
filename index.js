@@ -92,7 +92,7 @@ module.exports = async (req, res) => {
     )
   ];
 
-  console.log("calls",calls);
+  console.log("calls",JSON.stringify(calls));
 
   let iteration = 1;
   let chunks = chunk(calls, MAX_AGGREGATE_CALLS);
