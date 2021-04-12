@@ -73,8 +73,6 @@ function promiseIsRejected({ status }) {
 
 module.exports = async (req, res) => {
 
-  console.log("request: ",req);
-
   let aggregateCallsCounter = 0;
   const aggregateWithCounter = calls => {
     aggregateCallsCounter += 1;
@@ -83,8 +81,7 @@ module.exports = async (req, res) => {
 
   const { contractAddr, orders } = await json(req);
 
-  console.log("contractAddr, orders ",contractAddr, orders);
-
+  console.log("contractAddr, orders ", contractAddr, orders);
   const orderKeys = Object.keys(orders);
   const calls = [
     ...orderKeys.map(key =>
@@ -94,6 +91,8 @@ module.exports = async (req, res) => {
       makeAvailableVolumeCall(contractAddr, key, orders[key])
     )
   ];
+
+  console.log("calls",calls);
 
   let iteration = 1;
   let chunks = chunk(calls, MAX_AGGREGATE_CALLS);
